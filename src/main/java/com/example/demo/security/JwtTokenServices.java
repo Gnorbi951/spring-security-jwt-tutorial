@@ -43,12 +43,13 @@ public class JwtTokenServices {
         Date now = new Date();
         Date validity = new Date(now.getTime() + validityInMilliseconds);
 
-        return Jwts.builder()
+        String compact = Jwts.builder()
                 .setClaims(claims)
                 .setIssuedAt(now)
                 .setExpiration(validity)
                 .signWith(SignatureAlgorithm.HS256, secretKey)
                 .compact();
+        return compact;
     }
 
     String getTokenFromRequest(HttpServletRequest req) {
